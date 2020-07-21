@@ -33,7 +33,14 @@ UI.prototype.showAlert = function (message, className) {
 	container.insertBefore(div, form) // Inserts alert
 	setTimeout(function () {
 		document.querySelector(".alert").remove()
-	}, 3000)
+	}, 2000)
+}
+
+// Delete book
+UI.prototype.deleteBook = function (target) {
+	if (target.className === "delete") {
+		target.parentElement.parentElement.remove()
+	}
 }
 
 // Clear fields
@@ -43,7 +50,7 @@ UI.prototype.clearFields = function () {
 	document.getElementById("isbn").value = ""
 }
 
-// Event Listeners
+// Event Listener for add book
 document.getElementById("bookForm").addEventListener("submit", function (e) {
 	e.preventDefault()
 	// Getting form values
@@ -71,4 +78,17 @@ document.getElementById("bookForm").addEventListener("submit", function (e) {
 		// show success alert
 		ui.showAlert("Book Added", "success")
 	}
+})
+
+// Event Listener for delete book
+document.getElementById("bookList").addEventListener("click", function (e) {
+	e.preventDefault()
+	//  Instantiate UI
+	const ui = new UI()
+
+	// deletes book
+	ui.deleteBook(e.target)
+
+	// shows alert message
+	ui.showAlert("Book Deleted", "success")
 })
